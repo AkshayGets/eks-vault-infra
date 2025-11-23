@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 6.0"
     }
   }
 }
@@ -49,3 +49,4 @@ module "eks_secondary" {
   private_subnets       = module.vpc_secondary.private_subnets
   vpc_primary_cidr      = module.vpc_primary.vpc_cidr
 }
+
