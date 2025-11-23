@@ -17,3 +17,11 @@ variable "secondary_cidr" {
   description = "Secondary VPC CIDR"
   type        = string
 }
+
+variable "primary_route_table_ids" {
+  type = list(string)
+}
+
+variable "secondary_route_table_ids" {
+  type = list(string)
+}
