@@ -9,13 +9,15 @@ resource "aws_vpc_peering_connection" "peer" {
 }
 
 resource "aws_route" "primary_to_secondary" {
-  route_table_id         = aws_route_table.primary_rt.id
+  for_each = toset(var.primary_route_table_ids)
+  route_table_id         = each.value
   destination_cidr_block = var.secondary_cidr
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering.id
 }
 
 resource "aws_route" "secondary_to_primary" {
-  route_table_id         = aws_route_table.secondary_rt.id
+  for_each = toset(var.secondary_route_table_ids)
+  route_table_id         = each.value
   destination_cidr_block = var.primary_cidr
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering.id
 }
