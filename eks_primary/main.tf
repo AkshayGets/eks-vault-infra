@@ -1,7 +1,7 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "vault-primary-eks"
-  cluster_version = "1.29"
+  name            = "vault-primary-eks"
+  version         = "1.29"
 
   vpc_id          = var.vpc_id
   subnet_ids      = var.private_subnets
@@ -30,3 +30,4 @@ resource "aws_security_group_rule" "allow_replication" {
 output "cluster_name"         { value = module.eks.cluster_name }
 output "cluster_endpoint"     { value = module.eks.cluster_endpoint }
 output "cluster_security_group_id" { value = module.eks.cluster_security_group_id }
+
