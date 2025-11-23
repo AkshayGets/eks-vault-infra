@@ -24,12 +24,12 @@ module "vpc_secondary" {
 
 module "vpc_peering" {
   source = "./peering"
-
   primary_vpc_id   = module.vpc_primary.vpc_id
   secondary_vpc_id = module.vpc_secondary.vpc_id
-
   primary_cidr   = module.vpc_primary.vpc_cidr
   secondary_cidr = module.vpc_secondary.vpc_cidr
+  primary_route_table_ids   = module.vpc_primary.private_route_table_ids
+  secondary_route_table_ids = module.vpc_secondary.private_route_table_ids
 }
 
 module "eks_primary" {
@@ -49,4 +49,5 @@ module "eks_secondary" {
   private_subnets       = module.vpc_secondary.private_subnets
   vpc_primary_cidr      = module.vpc_primary.vpc_cidr
 }
+
 
