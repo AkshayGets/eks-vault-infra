@@ -12,6 +12,21 @@ resource "aws_subnet" "private" {
   tags = { Name = "vault-primary-private-${count.index}" }
 }
 
-output "vpc_id"      { value = aws_vpc.this.id }
-output "vpc_cidr"    { value = aws_vpc.this.cidr_block }
+# Create a private route table
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.this.id
+  tags = { Name = "vault-primary-private-rt" }
+}
+
+# Associate private subnets with the route table
+resource "aws_route_table_association" "private_assoc" {
+  count          = length(aws_subnet.private)
+  subnet_id      = aws_subnet.private[count.index].id
+  route_table_id = aws_route_table.private.id
+}
+
+# Outputs
+output "vpc_id" { value = aws_vpc.this.id }
+output "vpc_cidr" { value = aws_vpc.this.cidr_block }
 output "private_subnets" { value = aws_subnet.private[*].id }
+output "private_route_table_ids" { value = [aws_route_table.private.id] }
