@@ -1,7 +1,7 @@
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "vault-secondary-eks"
-  cluster_version = "1.29"
+  name            = "vault-secondary-eks"
+  version         = "1.29"
 
   vpc_id          = var.vpc_id
   subnet_ids      = var.private_subnets
@@ -25,3 +25,4 @@ resource "aws_security_group_rule" "allow_replication" {
   cidr_blocks       = [var.vpc_primary_cidr]
   security_group_id = module.eks.cluster_security_group_id
 }
+
