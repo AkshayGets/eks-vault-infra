@@ -25,8 +25,4 @@ resource "aws_route_table_association" "private_assoc" {
   route_table_id = aws_route_table.private.id
 }
 
-# Outputs
-output "vpc_id" { value = aws_vpc.this.id }
-output "vpc_cidr" { value = aws_vpc.this.cidr_block }
-output "private_subnets" { value = aws_subnet.private[*].id }
-output "private_route_table_ids" { value = [aws_route_table.private.id] }
+
